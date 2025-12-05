@@ -287,3 +287,94 @@
 </tr>
 </tbody>
 </table>
+
+### گام ۳: اصلاح موارد نقض شده
+
+<table dir='rtl'>
+<tbody>
+<tr>
+<td width="120">
+<p><strong>اصل نقض شده</strong></p>
+</td>
+<td width="200">
+<p><strong>مورد نقض</strong></p>
+</td>
+<td width="380">
+<p><strong>راه حل اعمال شده</strong></p>
+</td>
+</tr>
+
+<tr>
+<td>
+<p><strong>SRP</strong></p>
+</td>
+<td>
+<p>ReservationService چند مسئولیت داشت</p>
+</td>
+<td>
+<p>کلاس «ReservationService» به کلاس‌های جداگانه تقسیم شد: «DiscountService» (مسئولیت تخفیف)، «PaymentService» (مسئولیت پرداخت)، «InvoiceService» (مسئولیت چاپ فاکتور)، و «NotificationServiceWrapper» (مسئولیت ارسال اعلان). «ReservationService» حالا فقط مسئول هماهنگی این سرویس‌ها است</p>
+</td>
+</tr>
+
+<tr>
+<td>
+<p><strong>OCP</strong></p>
+</td>
+<td>
+<p>switch case برای پرداخت و اعلان</p>
+</td>
+<td>
+<p>«PaymentStrategy» و کلاس‌های «CardPayment»، «CashPayment»، «PayPalPayment»، «OnSitePayment» ایجاد شدند. همچنین اینترفیس «NotificationService» و کلاس‌های «EmailSender» و «SmsSender» ایجاد شدند. Factory Pattern برای ایجاد استراتژی‌ها استفاده شد («PaymentStrategyFactory» و «NotificationServiceFactory»). حالا برای اضافه کردن روش پرداخت یا اعلان جدید، فقط نیاز به ایجاد کلاس جدید است بدون تغییر کد موجود</p>
+</td>
+</tr>
+
+<tr>
+<td>
+<p><strong>ISP</strong></p>
+</td>
+<td>
+<p>MessageSender هر دو متد sendEmail و sendSms را داشت</p>
+</td>
+<td>
+<p>اینترفیس «MessageSender» حذف شد و اینترفیس جدید «NotificationService» با یک متد «send» ایجاد شد. کلاس‌های «EmailSender» و «SmsSender» هر کدام فقط متدهای مربوط به خود را پیاده‌سازی می‌کنند</p>
+</td>
+</tr>
+
+<tr>
+<td>
+<p><strong>DIP</strong></p>
+</td>
+<td>
+<p>وابستگی مستقیم به کلاس‌های</p>
+</td>
+<td>
+<p>همه وابستگی‌ها از طریق constructor injection تزریق می‌شوند. «ReservationService» به اینترفیس‌ها وابسته است. «PaymentService» و «NotificationServiceWrapper» هم از اینترفیس‌ها استفاده می‌کنند. در «Main» تمام وابستگی‌ها ایجاد و تزریق می‌شوند</p>
+</td>
+</tr>
+
+<tr>
+<td>
+<p><strong>PLK</strong></p>
+</td>
+<td>
+<p>دسترسی مستقیم به فیلدهای public</p>
+</td>
+<td>
+<p>تمام فیلدهای public در کلاس‌های «Customer»، «Room»، و «Reservation» به private تغییر یافتند و متدهای getter اضافه شدند. همچنین متدهای helper در «Reservation» برای دسترسی به اطلاعات customer و room اضافه شدند تا از دسترسی مستقیم به فیلدهای داخلی جلوگیری شود</p>
+</td>
+</tr>
+
+<tr>
+<td>
+<p><strong>CRP</strong></p>
+</td>
+<td>
+<p>LuxuryRoom از Room ارث‌بری می‌کرد</p>
+</td>
+<td>
+<p>«LuxuryRoom» دیگر از «Room» ارث‌بری نمی‌کند. به جای آن، یک نمونه از «Room» را به صورت composition دارد. اینترفیس «RoomInterface» ایجاد شد که هر دو «Room» و «LuxuryRoom» آن را پیاده‌سازی می‌کنند.</p>
+</td>
+</tr>
+
+</tbody>
+</table>
