@@ -2,7 +2,7 @@
 
 # آشنایی با اصول شئ‌گرایی (موسوم به اصول SOLID)
 
-### گام ۱: افزودن یک روش پیام رسانی دیگر
+### گام ۱: افزودن یک روش پیام رسانی و پرداختی دیگر
 
 <table dir='rtl'>
 <tbody>
@@ -95,3 +95,36 @@
 <p>فراخوانی makeReservation با SMS</p>
 </td>
 </tr>
+
+<tr>
+<td width="64">
+<p><strong>۶</strong></p>
+</td>
+<td width="198">
+<p>PaymentProcessor</p>
+</td>
+<td width="141">
+<p>افزودن پرداخت در محل</p>
+</td>
+<td width="292">
+<p>افزودن تابع payOnSite به PaymentProcessor</p>
+</td>
+</tr>
+
+<tr>
+<td width="64">
+<p><strong>7</strong></p>
+</td>
+<td width="198">
+<p>ReservationService</p>
+</td>
+<td width="141">
+<p>اضافه کردن شرط پرداخت در محل</p>
+</td>
+<td width="292">
+<p>اضافه کردن case ONSITE در switch case تابع makeReservation</p>
+</td>
+</tr>
+
+مجموع تعداد تغییرات: 7
+
